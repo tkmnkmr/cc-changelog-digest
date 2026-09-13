@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish out/<version>/ to docs/<version>/, update docs/index.html,
+"""Publish out/<version>/ to site/<version>/, update site/index.html,
 commit, and (unless --no-push) push to the git remote.
 
 Usage:
@@ -25,12 +25,12 @@ import sys
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(ROOT_DIR, "out")
-DOCS_DIR = os.path.join(ROOT_DIR, "docs")
+SITE_DIR = os.path.join(ROOT_DIR, "site")
 STATE_DIR = os.path.join(ROOT_DIR, "state")
 
 PAGES_BASE_URL = "https://tkmnkmr.github.io/cc-changelog-digest"
 
-PUBLISH_FILES = ["report.html", "card.png", "report.png", "post.md"]
+PUBLISH_FILES = ["report.html", "card.png", "report.png", "summary.md"]
 
 VERSION_SORT_RE = re.compile(r"(\d+)")
 
@@ -46,7 +46,7 @@ def copy_version_dir(version):
         print(f"error: {src_dir} does not exist", file=sys.stderr)
         sys.exit(1)
 
-    dst_dir = os.path.join(DOCS_DIR, version)
+    dst_dir = os.path.join(SITE_DIR, version)
     os.makedirs(dst_dir, exist_ok=True)
 
     copied = []
@@ -67,11 +67,11 @@ def copy_version_dir(version):
 
 
 def list_published_versions():
-    if not os.path.isdir(DOCS_DIR):
+    if not os.path.isdir(SITE_DIR):
         return []
     versions = []
-    for name in os.listdir(DOCS_DIR):
-        path = os.path.join(DOCS_DIR, name)
+    for name in os.listdir(SITE_DIR):
+        path = os.path.join(SITE_DIR, name)
         if os.path.isdir(path) and os.path.exists(os.path.join(path, "report.html")):
             versions.append(name)
     versions.sort(key=version_sort_key, reverse=True)
@@ -81,7 +81,7 @@ def list_published_versions():
 def build_index_html(versions):
     rows = []
     for v in versions:
-        card_path = os.path.join(DOCS_DIR, v, "card.png")
+        card_path = os.path.join(SITE_DIR, v, "card.png")
         thumb = (
             f'<img src="{html.escape(v)}/card.png" alt="v{html.escape(v)} card" class="thumb">'
             if os.path.exists(card_path)
@@ -128,7 +128,7 @@ def build_index_html(versions):
 def update_index():
     versions = list_published_versions()
     index_html = build_index_html(versions)
-    with open(os.path.join(DOCS_DIR, "index.html"), "w", encoding="utf-8") as f:
+    with open(os.path.join(SITE_DIR, "index.html"), "w", encoding="utf-8") as f:
         f.write(index_html)
 
 
@@ -137,7 +137,7 @@ def run(cmd, **kwargs):
 
 
 def git_commit(version):
-    run(["git", "add", "docs", "out", "state"])
+    run(["git", "add", "site", "out", "state"])
     result = run(["git", "commit", "-m", f"digest: v{version}"])
     if result.returncode != 0:
         combined = (result.stdout or "") + (result.stderr or "")
