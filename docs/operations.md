@@ -47,6 +47,6 @@ python3 scripts/check_update.py --feed-file tests/fixtures/feed_sample.xml
 - `publish.py` は `git push` 時にチェックアウト中のブランチへ push する（ブランチを指定しない）。
   作業ツリーが `main` 以外のブランチにチェックアウトされていると、意図しないブランチに配信物が
   積まれてしまう。
-- GitHub Pages は `main` ブランチの `site/` ディレクトリから配信される設定（`docs/setup.md` 参照）。
+- GitHub Pages は `main` の `site/` を GitHub Actions（`.github/workflows/pages.yml`）でデプロイして配信する（`docs/setup.md` 参照）。
   したがって配信を機能させるには、スケジュールタスク実行時に作業ツリーが `main` である必要がある。
 - 開発作業でブランチを切る場合も、`publish.py` を実行する前には必ず `main` に戻す。

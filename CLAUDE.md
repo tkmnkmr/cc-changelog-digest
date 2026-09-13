@@ -38,6 +38,8 @@ python3 scripts/check_update.py
 - `out/<version>/summary.md`  ← ヘッドライン＋3行でわかる＋今日やること
 複数版をまとめる場合はディレクトリ名を `<最新版>` にし、report 内に版ごとのセクションを置く。
 成果物を書き出す際は `<!-- LLM: -->` コメントを全て削除する。
+`summary.md` など Markdown の成果物は Bash のヒアドキュメントで書き出す（サブエージェント実行時に
+Write ツールがレポートファイルと誤検知して拒否することがある）。
 
 ## 3. 画像化
 ```bash
@@ -57,7 +59,10 @@ python3 scripts/publish.py <version>
 - to: tkm603018@gmail.com
 - subject: `[Claude Code] v<version> アップデートまとめ`（複数版なら `v<古い>〜v<新しい>`）
 - htmlBody: 埋めた email.html。body: summary.md のテキスト + report_url（プレーン代替）
-- セッションリンク: `python3 scripts/session_link.py` の結果と、可能なら `get_session self` のセッション ID/タイトルを本文に記載（取れなければ省略）。
+- セッションリンク: セッション ID/タイトルの取得元は優先順位順に試す。
+  1. `get_session self`（`mcp__ccd_session_mgmt__get_session`）を第一候補とする
+  2. 取得できない場合のフォールバックとして `python3 scripts/session_link.py` を使う
+  どちらも取れなければ省略する。
 
 ## 6. 既読化（送信成功後のみ）
 ```bash
