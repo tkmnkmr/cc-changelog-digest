@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>{{VERSION}} アップデートまとめ</title>
+<title>v2.1.270 アップデートまとめ</title>
 <style>
   :root{
     --bg: #0F1115;
@@ -256,12 +256,16 @@
 </head>
 <body>
 
+  <div style="background:#3a2a05; color:#F5A623; border-bottom:1px solid #F5A623; padding:12px 24px; font-size:13px; font-weight:700; text-align:center;">
+    ⚠️ サンプル（架空データ） — このページはテンプレ確認用のダミーです。実際の Claude Code のリリース内容ではありません。
+  </div>
+
   <div class="hero">
     <p class="hero-eyebrow">CLAUDE CODE CHANGELOG DIGEST</p>
-    <h1 class="hero-version">{{VERSION}}</h1>
-    <p class="hero-date">{{RELEASE_DATE}}</p>
+    <h1 class="hero-version">v2.1.270</h1>
+    <p class="hero-date">2026年9月13日</p>
     <!-- LLM: ここに今回のアップデートの一言まとめを書く。50字以内。CHANGELOGの文をそのまま貼らない。ユーザー視点で「何が嬉しいか」を書く -->
-    <p class="hero-headline">{{HERO_SUMMARY}}</p>
+    <p class="hero-headline">長時間セッションでもgit確認が止まらず、新モデルで生成精度も向上</p>
   </div>
 
   <div class="wrap">
@@ -269,13 +273,28 @@
     <section class="block">
       <h2 class="block-title"><span class="block-num">02</span> 前後で何が変わる／何が嬉しいか</h2>
       <!-- LLM: このセクションの導入。50字以内 -->
-      <p class="block-desc">{{BEFORE_AFTER_INTRO}}</p>
+      <p class="block-desc">read-only操作の権限確認が減り、作業の中断が起きにくくなった</p>
       <div class="diagram-slot">
         <!-- LLM: ここに Before/After 対比図の SVG を templates/DIAGRAM_GUIDE.md の型に沿って埋める -->
-        {{DIAGRAM_BEFORE_AFTER}}
+        <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" font-family="Hiragino Kaku Gothic ProN, sans-serif">
+  <rect x="0" y="0" width="400" height="200" rx="12" fill="#1C1F27" stroke="#2A2E38"/>
+  <text x="24" y="34" font-size="12" fill="#8A8F98" letter-spacing="1">BEFORE</text>
+  <text x="24" y="70" font-size="16" fill="#E8EAED" font-weight="700">長時間セッションで再確認</text>
+  <text x="24" y="98" font-size="13" fill="#9AA1AC">git status など読み取り専用</text>
+  <text x="24" y="118" font-size="13" fill="#9AA1AC">操作でも権限確認が挟まる</text>
+
+  <line x1="410" y1="100" x2="480" y2="100" stroke="#F5A623" stroke-width="3"/>
+  <polygon points="480,92 498,100 480,108" fill="#F5A623"/>
+
+  <rect x="500" y="0" width="400" height="200" rx="12" fill="#1C1F27" stroke="#34D399"/>
+  <text x="524" y="34" font-size="12" fill="#34D399" letter-spacing="1">AFTER</text>
+  <text x="524" y="70" font-size="16" fill="#E8EAED" font-weight="700">read-onlyは確認なしで実行</text>
+  <text x="524" y="98" font-size="13" fill="#9AA1AC">長時間作業中も手が止まらず</text>
+  <text x="524" y="118" font-size="13" fill="#9AA1AC">集中を保てる</text>
+</svg>
       </div>
       <!-- LLM: 図の説明キャプション。50字以内 -->
-      <p class="diagram-caption">{{BEFORE_AFTER_CAPTION}}</p>
+      <p class="diagram-caption">セッションが長くなっても確認ダイアログで手が止まらなくなる</p>
     </section>
 
     <section class="block">
@@ -284,9 +303,9 @@
       <div class="item-card breaking">
         <span class="item-tag">BREAKING</span>
         <!-- LLM: 変更点のタイトル。20字以内 -->
-        <p class="item-title">{{BREAKING_TITLE_1}}</p>
+        <p class="item-title">sandboxMode設定の廃止</p>
         <!-- LLM: 何が壊れて何をすべきか。50字以内 -->
-        <p class="item-desc">{{BREAKING_DESC_1}}</p>
+        <p class="item-desc">settings.jsonのsandboxModeキーは次版で無視される。permissions.sandboxへ移行が必要</p>
       </div>
     </section>
 
@@ -296,9 +315,9 @@
       <div class="item-card major">
         <span class="item-tag">MAJOR</span>
         <!-- LLM: 20字以内 -->
-        <p class="item-title">{{MAJOR_TITLE_1}}</p>
+        <p class="item-title">Bash read-only判定を全面改善</p>
         <!-- LLM: 50字以内 -->
-        <p class="item-desc">{{MAJOR_DESC_1}}</p>
+        <p class="item-desc">git status等の読み取り専用コマンドで確認が挟まらず連続作業できる</p>
       </div>
     </section>
 
@@ -308,9 +327,9 @@
       <div class="item-card model">
         <span class="item-tag">MODEL</span>
         <!-- LLM: 20字以内 -->
-        <p class="item-title">{{MODEL_TITLE_1}}</p>
+        <p class="item-title">Sonnet 5 が選択可能に</p>
         <!-- LLM: 50字以内 -->
-        <p class="item-desc">{{MODEL_DESC_1}}</p>
+        <p class="item-desc">長文コードや多ファイル編集でも指示追従の精度が安定した</p>
       </div>
     </section>
 
@@ -320,17 +339,17 @@
         <div class="col new">
           <p class="col-head"><span class="dot"></span>✨ 新規</p>
           <!-- LLM: 該当なしの場合は <p class="feat-item">該当なし</p> のみ残す。各項目30字以内、複数可 -->
-          <p class="feat-item">{{NEW_ITEM_1}}</p>
+          <p class="feat-item">Sonnet 5 をモデル一覧から選択可能</p>
         </div>
         <div class="col update">
           <p class="col-head"><span class="dot"></span>🔧 更新</p>
           <!-- LLM: 該当なしの場合は <p class="feat-item">該当なし</p> のみ残す。各項目30字以内、複数可 -->
-          <p class="feat-item">{{UPDATE_ITEM_1}}</p>
+          <p class="feat-item">Bashのread-only git判定を強化</p>
         </div>
         <div class="col deprecated">
           <p class="col-head"><span class="dot"></span>🗑️ 廃止・利用不可</p>
           <!-- LLM: 該当なしの場合は <p class="feat-item">該当なし</p> のみ残す。各項目30字以内、複数可 -->
-          <p class="feat-item">{{DEPRECATED_ITEM_1}}</p>
+          <p class="feat-item">sandboxMode設定キーが次版で失効</p>
         </div>
       </div>
     </section>
@@ -340,20 +359,20 @@
       <div class="post-wrap">
         <div class="post-card-preview">
           <!-- LLM: card.png のURLを差し込む。無い場合はこの img タグごと削除して post-card-preview に "画像なし" のプレースホルダを入れる -->
-          <img src="{{CARD_IMAGE_URL}}" alt="card">
+          <img src="card.png" alt="card">
         </div>
         <!-- LLM: X投稿文をそのまま。140〜280字、絵文字3個以内、冒頭に結論、末尾に #ClaudeCode -->
-        <div class="post-text">{{POST_TEXT}}</div>
+        <div class="post-text">Claude Code v2.1.270、地味だけど効くやつが来た。長時間セッション後でも git status などread-onlyコマンドが権限確認なしで通るように。新モデル Sonnet 5 も追加でコード生成の精度が底上げ。破壊的変更が1件あるので sandboxMode設定を使っている人は移行ガイドを確認して。 #ClaudeCode</div>
       </div>
     </section>
 
   </div>
 
   <footer>
-    <span>CHANGELOG: <a href="{{CHANGELOG_URL}}">{{CHANGELOG_URL}}</a></span>
-    <span>Release: <a href="{{RELEASE_URL}}">{{RELEASE_URL}}</a></span>
-    <span>Session: {{SESSION_ID}}</span>
-    <span>Generated: {{GENERATED_AT}}</span>
+    <span>CHANGELOG: <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md</a></span>
+    <span>Release: <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.270">https://github.com/anthropics/claude-code/releases/tag/v2.1.270</a></span>
+    <span>Session: sample-dryrun-0913</span>
+    <span>Generated: 2026-09-13 19:40 JST</span>
   </footer>
 
 </body>

@@ -143,25 +143,25 @@
     <div class="top-row">
       <p class="eyebrow">CLAUDE CODE UPDATE</p>
       <!-- LLM: 破壊的変更が無い回はこの span ごと削除する -->
-      <span class="breaking-badge">{{BREAKING_BADGE}}</span>
+      <span class="breaking-badge">BREAKING x1</span>
     </div>
 
-    <h1 class="version">v{{VERSION}}</h1>
+    <h1 class="version">v2.1.270</h1>
 
     <!-- LLM: キャッチ一文。40字以内、体言止め可、CHANGELOGの引き写し禁止 -->
-    <p class="headline">{{HEADLINE}}</p>
+    <p class="headline">read-only操作の確認待ちが消え、Sonnet 5も追加</p>
 
     <ul class="points">
       <!-- LLM: 注目ポイント最大4つ。各30字以内。無い分は <li> ごと削除（空にしない） -->
-      <li><span class="icon">{{POINT_1_ICON}}</span><span>{{POINT_1}}</span></li>
-      <li><span class="icon">{{POINT_2_ICON}}</span><span>{{POINT_2}}</span></li>
-      <li><span class="icon">{{POINT_3_ICON}}</span><span>{{POINT_3}}</span></li>
-      <li><span class="icon">{{POINT_4_ICON}}</span><span>{{POINT_4}}</span></li>
+      <li><span class="icon">🔒</span><span>git status等が確認なしで実行</span></li>
+      <li><span class="icon">🧠</span><span>新モデル Sonnet 5 が選択可能に</span></li>
+      <li><span class="icon">⚠️</span><span>sandboxMode設定は次版で廃止</span></li>
+      <li><span class="icon">⚡</span><span>長時間セッションでも集中が途切れない</span></li>
     </ul>
   </div>
 
   <div class="footer">
-    <span>{{RELEASE_DATE}}</span>
+    <span>2026-09-13</span>
     <span>Claude Code Changelog Digest</span>
   </div>
 

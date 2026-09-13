@@ -94,8 +94,9 @@ report.html / card.html / post.md を埋めるときに必ず守ること。こ�
 
 ## 型3: 3列カード（新規 / 更新 / 廃止）
 
-report.html の `.cols3` セクションの上に置く「見出し」的な図。項目が多い場合は
-上のカードは代表1件のみ表示し、詳細は下の `.cols3` テキストリストに任せる。
+**report.html の 06 セクションでは使わない**（`.cols3` の HTML 版カードと内容が重複するため、
+06 は `.cols3` のテキストリストのみで構成する）。card.html や他セクションで3カテゴリを
+図解したい場合にのみ、この型を使ってよい。
 
 ```svg
 <svg viewBox="0 0 900 160" xmlns="http://www.w3.org/2000/svg" font-family="Hiragino Kaku Gothic ProN, sans-serif">
