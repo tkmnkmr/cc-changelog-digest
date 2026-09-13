@@ -81,10 +81,16 @@
     font-weight: 500;
     line-height: 1.6;
     color: var(--text);
-    margin: 0;
+    margin: 0 0 28px 0;
     max-width: 820px;
     border-left: 3px solid var(--accent);
     padding-left: 16px;
+  }
+  .hero-card {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    display: block;
   }
 
   /* ---------- Section shell ---------- */
@@ -125,6 +131,36 @@
   }
   .none::before { content: "— "; }
 
+  /* ---------- 3行でわかる ---------- */
+  .points3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .points3 li {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .points3 .num {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+    margin: 0 0 8px 0;
+  }
+  .points3 .txt {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
   /* ---------- Diagram slot ---------- */
   .diagram-slot {
     background: var(--bg-card);
@@ -142,14 +178,18 @@
     margin: 0;
   }
 
-  /* ---------- Category cards (breaking / major / model) ---------- */
+  /* ---------- Topic cards (breaking / major / model) ---------- */
+  .topics3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
   .item-card {
     border-radius: 10px;
     padding: 16px 18px;
-    margin-bottom: 12px;
     border: 1px solid var(--border);
+    height: 100%;
   }
-  .item-card:last-child { margin-bottom: 0; }
   .item-card.breaking { background: var(--c-breaking-bg); border-color: rgba(229,72,77,0.35); }
   .item-card.major { background: var(--c-major-bg); border-color: rgba(167,139,250,0.35); }
   .item-card.model { background: var(--c-model-bg); border-color: rgba(91,157,249,0.35); }
@@ -180,7 +220,7 @@
     margin: 0;
   }
 
-  /* ---------- 3-column feature grid ---------- */
+  /* ---------- 4-column feature grid ---------- */
   .cols3 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -219,31 +259,24 @@
   .feat-item:last-child { border-bottom: none; }
   .feat-item::before { content: "› "; color: var(--text-faint); }
 
-  /* ---------- X post preview ---------- */
-  .post-wrap {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: 20px;
-    align-items: start;
+  /* ---------- Action items ---------- */
+  .actions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
-  .post-card-preview {
-    width: 240px;
-    aspect-ratio: 1200 / 675;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-  .post-card-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .post-text {
+  .actions li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    padding: 12px 16px;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 16px 18px;
-    font-size: 14px;
-    line-height: 1.8;
-    white-space: pre-wrap;
-    color: var(--text);
+    margin-bottom: 10px;
   }
+  .actions li:last-child { margin-bottom: 0; }
+  .actions li::before { content: "→ "; color: var(--accent); font-weight: 700; }
 
   /* ---------- Footer ---------- */
   footer {
@@ -264,62 +297,60 @@
     <p class="hero-eyebrow">CLAUDE CODE CHANGELOG DIGEST</p>
     <h1 class="hero-version">{{VERSION}}</h1>
     <p class="hero-date">{{RELEASE_DATE}}</p>
-    <!-- LLM: ここに今回のアップデートの一言まとめを書く。50字以内。CHANGELOGの文をそのまま貼らない。ユーザー視点で「何が嬉しいか」を書く -->
-    <p class="hero-headline">{{HERO_SUMMARY}}</p>
+    <!-- LLM: 結論を一文で。40字以内。CHANGELOGの文をそのまま貼らない。ユーザー視点で「何が嬉しいか」を書く -->
+    <p class="hero-headline">{{HEADLINE}}</p>
+    <!-- LLM: 同ディレクトリの card.png への相対参照。render_png.py で生成済みのものをそのまま指す -->
+    <img class="hero-card" src="card.png" alt="{{VERSION}} まとめ画像">
   </div>
 
   <div class="wrap">
 
     <section class="block">
-      <h2 class="block-title"><span class="block-num">02</span> 前後で何が変わる／何が嬉しいか</h2>
-      <!-- LLM: このセクションの導入。50字以内 -->
-      <p class="block-desc">{{BEFORE_AFTER_INTRO}}</p>
+      <h2 class="block-title"><span class="block-num">01</span> 3行でわかる</h2>
+      <ul class="points3">
+        <!-- LLM: 各項目50字以内。3つとも埋める -->
+        <li><span class="num">1</span><span class="txt">{{POINT_1}}</span></li>
+        <li><span class="num">2</span><span class="txt">{{POINT_2}}</span></li>
+        <li><span class="num">3</span><span class="txt">{{POINT_3}}</span></li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="block-num">02</span> 何が変わる・何が嬉しい</h2>
       <div class="diagram-slot">
         <!-- LLM: ここに Before/After 対比図の SVG を templates/DIAGRAM_GUIDE.md の型に沿って埋める -->
         {{DIAGRAM_BEFORE_AFTER}}
       </div>
-      <!-- LLM: 図の説明キャプション。50字以内 -->
-      <p class="diagram-caption">{{BEFORE_AFTER_CAPTION}}</p>
+      <!-- LLM: 図の補足。50字以内 -->
+      <p class="diagram-caption">{{BENEFIT_TEXT}}</p>
     </section>
 
     <section class="block">
-      <h2 class="block-title"><span class="block-num">03</span> ⚠️ 破壊的変更</h2>
-      <!-- LLM: 該当なしの場合は <div class="none">該当なし</div> のみを残し、item-card は全て削除する -->
-      <div class="item-card breaking">
-        <span class="item-tag">BREAKING</span>
-        <!-- LLM: 変更点のタイトル。20字以内 -->
-        <p class="item-title">{{BREAKING_TITLE_1}}</p>
-        <!-- LLM: 何が壊れて何をすべきか。50字以内 -->
-        <p class="item-desc">{{BREAKING_DESC_1}}</p>
+      <h2 class="block-title"><span class="block-num">03</span> 注目トピック</h2>
+      <div class="topics3">
+        <div class="item-card breaking">
+          <span class="item-tag">BREAKING</span>
+          <!-- LLM: 該当なしの場合は item-title/item-desc を削除し <div class="none">該当なし</div> のみ枠内に残す（枠=item-cardごと消さない） -->
+          <p class="item-title">{{BREAKING_TITLE}}</p>
+          <p class="item-desc">{{BREAKING_DESC}}</p>
+        </div>
+        <div class="item-card major">
+          <span class="item-tag">MAJOR</span>
+          <!-- LLM: 該当なしの場合は item-title/item-desc を削除し <div class="none">該当なし</div> のみ枠内に残す -->
+          <p class="item-title">{{MAJOR_TITLE}}</p>
+          <p class="item-desc">{{MAJOR_DESC}}</p>
+        </div>
+        <div class="item-card model">
+          <span class="item-tag">MODEL</span>
+          <!-- LLM: 該当なしの場合は item-title/item-desc を削除し <div class="none">該当なし</div> のみ枠内に残す -->
+          <p class="item-title">{{MODEL_TITLE}}</p>
+          <p class="item-desc">{{MODEL_DESC}}</p>
+        </div>
       </div>
     </section>
 
     <section class="block">
-      <h2 class="block-title"><span class="block-num">04</span> 🚀 大幅アップデート</h2>
-      <!-- LLM: 該当なしの場合は <div class="none">該当なし</div> のみを残す -->
-      <div class="item-card major">
-        <span class="item-tag">MAJOR</span>
-        <!-- LLM: 20字以内 -->
-        <p class="item-title">{{MAJOR_TITLE_1}}</p>
-        <!-- LLM: 50字以内 -->
-        <p class="item-desc">{{MAJOR_DESC_1}}</p>
-      </div>
-    </section>
-
-    <section class="block">
-      <h2 class="block-title"><span class="block-num">05</span> 🧠 新モデル・モデルのバージョン更新</h2>
-      <!-- LLM: 該当なしの場合は <div class="none">該当なし</div> のみを残す -->
-      <div class="item-card model">
-        <span class="item-tag">MODEL</span>
-        <!-- LLM: 20字以内 -->
-        <p class="item-title">{{MODEL_TITLE_1}}</p>
-        <!-- LLM: 50字以内 -->
-        <p class="item-desc">{{MODEL_DESC_1}}</p>
-      </div>
-    </section>
-
-    <section class="block">
-      <h2 class="block-title"><span class="block-num">06</span> 機能の追加・更新・廃止</h2>
+      <h2 class="block-title"><span class="block-num">04</span> 機能の追加・更新・廃止</h2>
       <div class="cols3">
         <div class="col new">
           <p class="col-head"><span class="dot"></span>✨ 新規</p>
@@ -345,15 +376,12 @@
     </section>
 
     <section class="block">
-      <h2 class="block-title"><span class="block-num">07</span> X 投稿</h2>
-      <div class="post-wrap">
-        <div class="post-card-preview">
-          <!-- LLM: card.png のURLを差し込む。無い場合はこの img タグごと削除して post-card-preview に "画像なし" のプレースホルダを入れる -->
-          <img src="{{CARD_IMAGE_URL}}" alt="card">
-        </div>
-        <!-- LLM: X投稿文をそのまま。140〜280字、絵文字3個以内、冒頭に結論、末尾に #ClaudeCode -->
-        <div class="post-text">{{POST_TEXT}}</div>
-      </div>
+      <h2 class="block-title"><span class="block-num">05</span> 影響を受ける人・今日やること</h2>
+      <ul class="actions">
+        <!-- LLM: 「〜を使っている人 → 〜する」形式の <li> を1〜3件、各50字以内で並べる（{{ACTION_ITEMS}} は複数 <li> をまとめて置き換える）。
+             無ければ <li>特別な対応は不要</li> の1件のみにする -->
+        {{ACTION_ITEMS}}
+      </ul>
     </section>
 
   </div>
