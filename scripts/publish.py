@@ -137,7 +137,7 @@ def run(cmd, **kwargs):
 
 
 def git_commit(version):
-    run(["git", "add", "docs", "state"])
+    run(["git", "add", "docs", "out", "state"])
     result = run(["git", "commit", "-m", f"digest: v{version}"])
     if result.returncode != 0:
         combined = (result.stdout or "") + (result.stderr or "")
