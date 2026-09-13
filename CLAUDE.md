@@ -24,7 +24,7 @@ python3 scripts/check_update.py
 2. ⚠️ 破壊的変更（無ければ「該当なし」を明記）
 3. 🚀 大幅アップデート
 4. 🧠 新モデル・モデルのバージョン更新
-5. ✨ 新規 / 🔧 更新 / 🗑️ 廃止・利用不可 の機能
+5. ✨ 新規 / 🔧 更新 / 🐛 修正 / 🗑️ 廃止・利用不可 の機能
 6. X 投稿文（140〜280 字、結論から、絵文字 3 個以内、#ClaudeCode）
 
 `pre_classified` はキーワード分類の下書きにすぎない。文脈で判断して上書きしてよい。
@@ -35,6 +35,7 @@ python3 scripts/check_update.py
 - `out/<version>/card.html`   ← `templates/card.html`
 - `out/<version>/post.md`     ← X 投稿文
 複数版をまとめる場合はディレクトリ名を `<最新版>` にし、report 内に版ごとのセクションを置く。
+成果物を書き出す際は `<!-- LLM: -->` コメントを全て削除する。
 
 ## 3. 画像化
 ```bash

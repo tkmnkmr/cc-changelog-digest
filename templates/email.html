@@ -3,7 +3,7 @@
   - Gmail はほとんどの CSS を許容するが、classレベルの<style>は消える場合があるので
     全要素に style 属性でインラインCSSを付けている。この構造は変えないこと。
   - テーブルレイアウト（table/tr/td）のみで組む。flex/grid は使わない。
-  - 画像が無い場合（push失敗などのフォールバック時）は {{CARD_BLOCK}} ブロックを
+  - 画像が無い場合（push失敗などのフォールバック時）はカード画像ブロック（tr#CARD_BLOCK）を
     丸ごと削除し、代わりに「画像なし」の一文をテキストで入れる。
 -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F4F5F7; padding:24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Segoe UI', sans-serif;">
