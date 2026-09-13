@@ -109,3 +109,21 @@ class CheckUpdateCliTestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SelectNewEntriesTests(unittest.TestCase):
+    def _entries(self):
+        return [{"version": v} for v in ["2.1.270", "2.1.269", "2.1.268"]]
+
+    def test_first_run_returns_only_newest(self):
+        from check_update import select_new_entries
+        self.assertEqual([e["version"] for e in select_new_entries(self._entries(), set())], ["2.1.270"])
+
+    def test_older_unseen_versions_are_ignored(self):
+        from check_update import select_new_entries
+        self.assertEqual(select_new_entries(self._entries(), {"2.1.270"}), [])
+
+    def test_newer_versions_are_returned(self):
+        from check_update import select_new_entries
+        got = [e["version"] for e in select_new_entries(self._entries(), {"2.1.268"})]
+        self.assertEqual(got, ["2.1.270", "2.1.269"])

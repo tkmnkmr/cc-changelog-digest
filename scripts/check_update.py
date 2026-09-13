@@ -229,6 +229,28 @@ def write_pending(entry):
     return path
 
 
+def version_key(version):
+    return tuple(int(p) for p in version.split("."))
+
+
+def select_new_entries(entries, seen_versions):
+    """Return entries that are strictly newer than the newest seen version.
+
+    - First run (nothing seen): only the newest entry, to avoid blasting
+      the full history on initial setup.
+    - Otherwise: entries whose version is greater than max(seen) and not
+      already seen. Older, never-sent versions are intentionally ignored.
+    """
+    if not seen_versions:
+        return entries[:1]
+    newest_seen = max(seen_versions, key=version_key)
+    return [
+        e for e in entries
+        if e["version"] not in seen_versions
+        and version_key(e["version"]) > version_key(newest_seen)
+    ]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--feed-file", help="Read feed XML from a local file instead of the network")
@@ -242,14 +264,8 @@ def main():
 
     last_seen = load_last_seen()
     seen_versions = set(last_seen["seen_versions"])
-    is_first_run = len(seen_versions) == 0
 
-    new_entries = [e for e in entries if e["version"] not in seen_versions]
-
-    if is_first_run and new_entries:
-        # Only the newest entry counts as "new" on a first run, to avoid
-        # blasting the full history on initial setup.
-        new_entries = new_entries[:1]
+    new_entries = select_new_entries(entries, seen_versions)
 
     forced_written = []
     if args.force:
