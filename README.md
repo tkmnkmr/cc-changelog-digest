@@ -1,84 +1,109 @@
 # cc-changelog-digest
 
-Claude Code の CHANGELOG 更新を検知し、図付き HTML 資料（X の AI インフルエンサー投稿を
-文体・構成の手本にした、結論先出し・短文のまとめ）を生成してメールで配信するための足場スクリプト群。
+Claude Code の CHANGELOG 更新を検知し、図付きメールで配信する。
 
-## 目的
+## 1. 全体フロー
 
-- 公式 Atom フィード（`https://raw.githubusercontent.com/anthropics/claude-code/main/feed.xml`）
-  をポーリングし、新しいバージョンのリリースノートを検知する。
-- リリースノートを「ヘッドライン／3行でわかる／前後の変化／注目トピック／機能の追加・更新・廃止」
-  という観点で整理し、`templates/` を使って HTML 資料（report.html）・まとめ画像
-  （card.html → card.png）・summary.md（ヘッドライン＋3行でわかる＋今日やること）を作る。
-- 生成物を GitHub Pages（`docs/`）に公開し、メールで配信する。
+```mermaid
+flowchart LR
+    A[feed.xml] --> B[check_update]
+    B --> C[Claudeが執筆]
+    C --> D[render_png]
+    D --> E["publish(site/→Pages)"]
+    E --> F[Gmail送信]
+    F --> G[mark_seen]
+```
 
-実際の文章整理・資料執筆は Claude（スケジュールタスク）が担当する。このリポジトリの
-`scripts/` は検知・分類の下準備・画像化・公開・既読管理という「機械的な部分」のみを担う。
+新着リリースを検知し、執筆・画像化・公開・送信・既読化までを自動で行う。
 
-## 構成
+## 2. 届くもの
+
+```mermaid
+flowchart TD
+    A["結論一文"] --> B["まとめ画像"]
+    B --> C["3行でわかる"]
+    C --> D["注目トピック"]
+    D --> E["今日やること"]
+    E --> F["資料リンク"]
+```
+
+結論から入り、画像・要点・注目トピック・行動・詳細リンクの順で読める。
+
+サンプル画像（架空データ、実際のリリース内容ではありません）:
+
+![サンプルカード](examples/sample/card.png)
+
+## 3. 動作の仕組み
+
+```mermaid
+sequenceDiagram
+    participant S as スケジュールタスク
+    participant C as check_update
+    participant Claude
+    S->>C: 毎時7分に実行
+    alt NO_UPDATE
+        C-->>S: 更新なしで終了
+    else NEW_UPDATE
+        C-->>Claude: pending/<version>.json
+        Claude->>Claude: 執筆〜render〜publish
+        Claude->>Claude: Gmail送信
+        Claude->>Claude: mark_seen（送信成功時のみ）
+    end
+```
+
+更新が無ければ何もせず終わる。あるときだけ執筆から送信まで一気通貫で進む。
+
+## 4. 状態管理
+
+```mermaid
+stateDiagram-v2
+    [*] --> 未読
+    未読 --> pending: check_update
+    pending --> 公開済み: publish
+    公開済み --> 既読: 送信成功
+    公開済み --> pending: 送信失敗（再送）
+```
+
+送信に失敗した版は既読化されず、次回また自動で再送が試みられる。
+
+## 5. ディレクトリ構成
 
 ```
 scripts/
-  check_update.py   feed.xml を取得し新着バージョンを検知、state/pending/<ver>.json を書く
+  check_update.py   feed.xmlを取得し新着バージョンを検知、state/pending/<ver>.jsonを書く
   classify.py       キーワード辞書によるプレ分類（breaking/major/model/added/changed/removed/fixed/other）
-  render_png.py     out/<ver>/card.html・report.html を playwright で PNG 化
-  publish.py        out/<ver> を docs/<ver> にコピーし、index.html 更新、git commit & push
-  mark_seen.py      state/last_seen.json に既読バージョンを追記、pending JSON を削除
-  session_link.py   実行中セッション ID の推定（best-effort）
-templates/          report.html / card.html / email.html などのテンプレ（別担当が作成）
+  render_png.py     out/<ver>/card.html・report.htmlをplaywrightでPNG化
+  publish.py        out/<ver>をsite/<ver>にコピーし、index.html更新、git commit & push
+  mark_seen.py      state/last_seen.jsonに既読バージョンを追記、pending JSONを削除
+  session_link.py   実行中セッションIDの推定（best-effort）
+templates/          report.html/card.html/email.htmlなどのテンプレと執筆規約
 state/
   last_seen.json    既読バージョン一覧と最終チェック時刻
-  pending/          未処理の新着バージョン JSON（.gitignore 対象）
-out/                生成物（report.html, card.html, *.png, summary.md）バージョンごとのディレクトリ
-docs/               GitHub Pages 公開先（index.html + <ver>/）
-tests/              unittest 一式、フィクスチャは tests/fixtures/
+  pending/          未処理の新着バージョンJSON（.gitignore対象）
+out/                生成物（report.html, card.html, *.png, summary.md）バージョンごと
+site/               GitHub Pages公開先（index.html + <ver>/）
+tests/              unittest一式、フィクスチャはtests/fixtures/
+docs/               詳細ドキュメント（setup/operations/scripts/writing-guide/design-decisions）
 ```
 
-## 手動実行手順
+## 6. はじめ方
 
-```bash
-# 1. 新着チェック（NEW_UPDATE / NO_UPDATE を標準出力に、新着があれば state/pending/<ver>.json を生成）
-python3 scripts/check_update.py
+1. `pip install -r requirements.txt` で依存関係を入れる。
+2. Claude デスクトップで Gmail 連携とスケジュールタスクを設定する。
+3. `python3 scripts/check_update.py` で動作確認する。
 
-# ローカルの feed.xml で試す場合
-python3 scripts/check_update.py --feed-file tests/fixtures/feed_sample.xml
+詳細手順は [docs/setup.md](docs/setup.md) を参照。
 
-# 既読でも強制的に pending に出したい場合（ドライラン用）
-python3 scripts/check_update.py --force 2.1.270
+## 7. 詳細ドキュメント
 
-# 2. (Claude が) state/pending/<ver>.json を読み、templates/ を使って
-#    out/<ver>/report.html, out/<ver>/card.html, out/<ver>/summary.md を作成する
+- [docs/setup.md](docs/setup.md) — セットアップ・Pages設定・スケジュールタスク登録
+- [docs/operations.md](docs/operations.md) — 日々の運用・手動実行・失敗時の挙動
+- [docs/scripts.md](docs/scripts.md) — 各スクリプトの引数・出力・終了コード
+- [docs/writing-guide.md](docs/writing-guide.md) — 執筆の考え方の概要
+- [docs/design-decisions.md](docs/design-decisions.md) — 設計判断とその理由
 
-# 3. PNG 化
-python3 scripts/render_png.py 2.1.270
-
-# 4. 公開（GitHub Pages への commit & push）
-python3 scripts/publish.py 2.1.270
-python3 scripts/publish.py 2.1.270 --no-push   # push せずローカル確認のみ
-
-# 5. 配信できたら既読化
-python3 scripts/mark_seen.py 2.1.270
-
-# セッションリンクの推定（best-effort、失敗しても exit 0）
-python3 scripts/session_link.py
-```
-
-## テスト
+テストの実行:
 
 ```bash
 python3 -m unittest discover -s tests
 ```
-
-## 分類ロジックについて
-
-`scripts/classify.py` は `~/code/rss-changelog-monitor/changelog_parser.py` の
-キーワード辞書による分類方式を参考に、このプロジェクト向けのカテゴリ
-（breaking / major / model / added / changed / removed / fixed / other）で
-再構成したものです（コピペではなく自作コード）。
-
-## 依存関係
-
-- Python 3 標準ライブラリのみで `check_update.py` / `classify.py` / `publish.py` /
-  `mark_seen.py` / `session_link.py` は動作する。
-- `render_png.py` のみ `playwright`（`requirements.txt` 参照）と Chromium が必要。
-  開発機では playwright も chromium も既にインストール済みの前提。
