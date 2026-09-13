@@ -26,6 +26,8 @@
     --c-new-bg: rgba(52,211,153,0.12);
     --c-update: #F0B429;
     --c-update-bg: rgba(240,180,41,0.12);
+    --c-fix: #2DD4BF;
+    --c-fix-bg: rgba(45,212,191,0.12);
     --c-deprecated: #8A8F98;
     --c-deprecated-bg: rgba(138,143,152,0.12);
   }
@@ -181,32 +183,34 @@
   /* ---------- 3-column feature grid ---------- */
   .cols3 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
   }
   .col {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 16px;
+    padding: 14px;
   }
   .col-head {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 13px;
+    gap: 6px;
+    font-size: 12px;
     font-weight: 700;
     margin: 0 0 12px 0;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
+    white-space: nowrap;
   }
   .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
   .col.new .dot { background: var(--c-new); }
   .col.update .dot { background: var(--c-update); }
+  .col.fix .dot { background: var(--c-fix); }
   .col.deprecated .dot { background: var(--c-deprecated); }
 
   .feat-item {
-    font-size: 13px;
+    font-size: 12.5px;
     line-height: 1.6;
     color: var(--text);
     padding: 8px 0;
@@ -326,6 +330,11 @@
           <p class="col-head"><span class="dot"></span>🔧 更新</p>
           <!-- LLM: 該当なしの場合は <p class="feat-item">該当なし</p> のみ残す。各項目30字以内、複数可 -->
           <p class="feat-item">{{UPDATE_ITEM_1}}</p>
+        </div>
+        <div class="col fix">
+          <p class="col-head"><span class="dot"></span>🐛 修正</p>
+          <!-- LLM: 該当なしの場合は <p class="feat-item">該当なし</p> のみ残す。各項目30字以内、複数可 -->
+          <p class="feat-item">{{FIX_ITEM_1}}</p>
         </div>
         <div class="col deprecated">
           <p class="col-head"><span class="dot"></span>🗑️ 廃止・利用不可</p>

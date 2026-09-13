@@ -1,0 +1,95 @@
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F4F5F7; padding:24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Segoe UI', sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px; background-color:#0F1115; border-radius:12px; overflow:hidden;">
+
+        <!-- Header -->
+        <tr>
+          <td style="padding:28px 32px 20px 32px; border-bottom:1px solid #2A2E38;">
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:12px; color:#F5A623; letter-spacing:1px; margin:0 0 10px 0;">
+              CLAUDE CODE CHANGELOG DIGEST
+            </div>
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:30px; font-weight:700; color:#E8EAED; margin:0 0 6px 0;">
+              v2.1.270
+            </div>
+            <div style="font-size:16px; color:#E8EAED; line-height:1.6; margin:0;">
+              長いセッションでも git の確認で止まらない
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:20px 32px 0 32px;">
+            <a href="https://tkmnkmr.github.io/cc-changelog-digest/2.1.270/report.html" style="text-decoration:none;">
+              <img src="https://tkmnkmr.github.io/cc-changelog-digest/2.1.270/card.png" width="536" alt="Claude Code v2.1.270 まとめ画像"
+                   style="display:block; width:100%; max-width:536px; height:auto; border-radius:10px; border:1px solid #2A2E38;">
+            </a>
+          </td>
+        </tr>
+
+        <!-- Summary table -->
+        <tr>
+          <td style="padding:24px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 12px 0;">
+              カテゴリ別サマリー
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+              <tr><td width="6" style="background-color:#E5484D; border-radius:3px;"></td><td style="padding:8px 12px; font-size:13px; color:#E8EAED; white-space:nowrap;">⚠️ 破壊的変更</td><td style="padding:8px 0; font-size:13px; color:#9AA1AC;">該当なし</td></tr>
+<tr><td colspan="3" style="height:1px; background-color:#2A2E38; font-size:0; line-height:0;">&nbsp;</td></tr>
+<tr><td width="6" style="background-color:#A78BFA; border-radius:3px;"></td><td style="padding:8px 12px; font-size:13px; color:#E8EAED; white-space:nowrap;">🚀 大幅アップデート</td><td style="padding:8px 0; font-size:13px; color:#9AA1AC;">該当なし</td></tr>
+<tr><td colspan="3" style="height:1px; background-color:#2A2E38; font-size:0; line-height:0;">&nbsp;</td></tr>
+<tr><td width="6" style="background-color:#5B9DF9; border-radius:3px;"></td><td style="padding:8px 12px; font-size:13px; color:#E8EAED; white-space:nowrap;">🧠 新モデル</td><td style="padding:8px 0; font-size:13px; color:#9AA1AC;">該当なし</td></tr>
+<tr><td colspan="3" style="height:1px; background-color:#2A2E38; font-size:0; line-height:0;">&nbsp;</td></tr>
+<tr><td width="6" style="background-color:#34D399; border-radius:3px;"></td><td style="padding:8px 12px; font-size:13px; color:#E8EAED; white-space:nowrap;">✨ 新規</td><td style="padding:8px 0; font-size:13px; color:#9AA1AC;">該当なし</td></tr>
+<tr><td colspan="3" style="height:1px; background-color:#2A2E38; font-size:0; line-height:0;">&nbsp;</td></tr>
+<tr><td width="6" style="background-color:#F0B429; border-radius:3px;"></td><td style="padding:8px 12px; font-size:13px; color:#E8EAED; white-space:nowrap;">🔧 更新・修正</td><td style="padding:8px 0; font-size:13px; color:#9AA1AC;">長時間セッションでの git 許可確認を修正</td></tr>
+<tr><td colspan="3" style="height:1px; background-color:#2A2E38; font-size:0; line-height:0;">&nbsp;</td></tr>
+<tr><td width="6" style="background-color:#8A8F98; border-radius:3px;"></td><td style="padding:8px 12px; font-size:13px; color:#E8EAED; white-space:nowrap;">🗑️ 廃止・利用不可</td><td style="padding:8px 0; font-size:13px; color:#9AA1AC;">該当なし</td></tr>
+<tr><td colspan="3" style="height:1px; background-color:#2A2E38; font-size:0; line-height:0;">&nbsp;</td></tr>
+
+            </table>
+          </td>
+        </tr>
+
+        <!-- X post text -->
+        <tr>
+          <td style="padding:20px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 10px 0;">
+              X 投稿文
+            </div>
+            <div style="background-color:#1C1F27; border:1px solid #2A2E38; border-radius:10px; padding:14px 16px; font-size:14px; line-height:1.8; color:#E8EAED;">
+              Claude Code v2.1.270、地味だが効く一点修正。長時間セッションの後に git status や git diff まで毎回パーミッション確認が出ていた 2.1.269 の挙動が直り、読むだけの git コマンドは何時間作業していても素通りするようになった。調査の途中で手を止められる小さなストレスが消える回。 #ClaudeCode
+            </div>
+          </td>
+        </tr>
+
+        <!-- CTA -->
+        <tr>
+          <td style="padding:24px 32px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="border-radius:8px; background-color:#F5A623;">
+                  <a href="https://tkmnkmr.github.io/cc-changelog-digest/2.1.270/report.html" style="display:inline-block; padding:12px 22px; font-size:14px; font-weight:700; color:#1a0a0a; text-decoration:none;">
+                    詳細資料を見る
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="padding:16px 32px 28px 32px; border-top:1px solid #2A2E38;">
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:11px; color:#5B6270; line-height:1.9;">
+              CHANGELOG: <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" style="color:#9AA1AC;">https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md</a><br>
+              Release: <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.270" style="color:#9AA1AC;">https://github.com/anthropics/claude-code/releases/tag/v2.1.270</a><br>
+              Session: local_c0f892d8-abde-4208-87d9-9d4c7018a28c (Claude Code更新通知システム)
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
