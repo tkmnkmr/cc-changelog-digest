@@ -1,15 +1,15 @@
 # cc-changelog-digest
 
-Claude Code の CHANGELOG 更新を検知し、図付き HTML 資料と X 投稿風まとめを生成して
-メールで配信するための足場スクリプト群。
+Claude Code の CHANGELOG 更新を検知し、図付き HTML 資料（X の AI インフルエンサー投稿を
+文体・構成の手本にした、結論先出し・短文のまとめ）を生成してメールで配信するための足場スクリプト群。
 
 ## 目的
 
 - 公式 Atom フィード（`https://raw.githubusercontent.com/anthropics/claude-code/main/feed.xml`）
   をポーリングし、新しいバージョンのリリースノートを検知する。
-- リリースノートを「変わったこと／嬉しいこと／破壊的変更／新モデル／機能の追加・更新・廃止」
-  という観点で整理し、`templates/` を使って HTML 資料（report.html）・X 風カード画像
-  （card.html → card.png）・投稿文（post.md）を作る。
+- リリースノートを「ヘッドライン／3行でわかる／前後の変化／注目トピック／機能の追加・更新・廃止」
+  という観点で整理し、`templates/` を使って HTML 資料（report.html）・まとめ画像
+  （card.html → card.png）・summary.md（ヘッドライン＋3行でわかる＋今日やること）を作る。
 - 生成物を GitHub Pages（`docs/`）に公開し、メールで配信する。
 
 実際の文章整理・資料執筆は Claude（スケジュールタスク）が担当する。このリポジトリの
@@ -29,7 +29,7 @@ templates/          report.html / card.html / email.html などのテンプレ�
 state/
   last_seen.json    既読バージョン一覧と最終チェック時刻
   pending/          未処理の新着バージョン JSON（.gitignore 対象）
-out/                生成物（report.html, card.html, *.png, post.md）バージョンごとのディレクトリ
+out/                生成物（report.html, card.html, *.png, summary.md）バージョンごとのディレクトリ
 docs/               GitHub Pages 公開先（index.html + <ver>/）
 tests/              unittest 一式、フィクスチャは tests/fixtures/
 ```
@@ -47,7 +47,7 @@ python3 scripts/check_update.py --feed-file tests/fixtures/feed_sample.xml
 python3 scripts/check_update.py --force 2.1.270
 
 # 2. (Claude が) state/pending/<ver>.json を読み、templates/ を使って
-#    out/<ver>/report.html, out/<ver>/card.html, out/<ver>/post.md を作成する
+#    out/<ver>/report.html, out/<ver>/card.html, out/<ver>/summary.md を作成する
 
 # 3. PNG 化
 python3 scripts/render_png.py 2.1.270

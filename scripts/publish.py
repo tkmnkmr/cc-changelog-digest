@@ -30,7 +30,7 @@ STATE_DIR = os.path.join(ROOT_DIR, "state")
 
 PAGES_BASE_URL = "https://tkmnkmr.github.io/cc-changelog-digest"
 
-PUBLISH_FILES = ["report.html", "card.png", "report.png", "post.md"]
+PUBLISH_FILES = ["report.html", "card.png", "report.png", "summary.md"]
 
 VERSION_SORT_RE = re.compile(r"(\d+)")
 

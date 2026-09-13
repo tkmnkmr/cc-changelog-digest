@@ -1,7 +1,8 @@
 # cc-changelog-digest — 実行手順（スケジュールタスク / 手動実行 共通）
 
-このリポジトリは Claude Code の CHANGELOG 更新を検知し、図付き HTML 資料と X 投稿風まとめを生成して
-メール配信する。以下の手順を **上から順に** 実行する。判断に迷ったら「送らない・既読にしない」を選ぶ。
+このリポジトリは Claude Code の CHANGELOG 更新を検知し、図付き HTML 資料（X の AI インフルエンサー
+投稿を文体・構成の手本にした、結論先出し・短文のまとめ）を生成してメール配信する。以下の手順を
+**上から順に** 実行する。判断に迷ったら「送らない・既読にしない」を選ぶ。
 
 ## 0. 前提
 - 作業ディレクトリ: `~/code/cc-changelog-digest`
@@ -18,14 +19,15 @@ python3 scripts/check_update.py
 
 ## 2. 整理・執筆（Opus 推奨）
 `state/pending/<version>.json` の `content_text` と `pre_classified` を材料に、次の観点で **再構成** する
-（CHANGELOG の文をそのまま貼らない。主語をユーザーにして「何が嬉しいか」を書く）。
+（CHANGELOG の文をそのまま貼らない。主語をユーザーにして「何が嬉しいか」を書く。
+文体・構成は X の AI インフルエンサー投稿を手本にする。詳細は `templates/DIAGRAM_GUIDE.md` 冒頭）。
 
-1. アップデート前後で何が変わり、何が嬉しいか（Before/After 図 + 50 字）
-2. ⚠️ 破壊的変更（無ければ「該当なし」を明記）
-3. 🚀 大幅アップデート
-4. 🧠 新モデル・モデルのバージョン更新
-5. ✨ 新規 / 🔧 更新 / 🐛 修正 / 🗑️ 廃止・利用不可 の機能
-6. X 投稿文（140〜280 字、結論から、絵文字 3 個以内、#ClaudeCode）
+1. ヘッドライン（結論一文、40字以内）
+2. 3行でわかる（各50字以内、3行）
+3. 前後の変化（Before/After 図 + 嬉しさ50字）
+4. 注目トピック3枠（⚠️破壊的変更 / 🚀大幅アップデート / 🧠新モデル、無ければ「該当なし」を明記）
+5. 機能4列（✨新規 / 🔧更新 / 🐛修正 / 🗑️廃止・利用不可）
+6. 今日やること（「〜を使っている人 → 〜する」形式、1〜3件。無ければ「特別な対応は不要」）
 
 `pre_classified` はキーワード分類の下書きにすぎない。文脈で判断して上書きしてよい。
 「破壊的変更」の判定は保守的に（挙動が変わりユーザーの対応が必要なものだけ）。
@@ -33,7 +35,7 @@ python3 scripts/check_update.py
 成果物（テンプレのプレースホルダを全て埋める。未使用プレースホルダを残さない）:
 - `out/<version>/report.html` ← `templates/report.html`
 - `out/<version>/card.html`   ← `templates/card.html`
-- `out/<version>/post.md`     ← X 投稿文
+- `out/<version>/summary.md`  ← ヘッドライン＋3行でわかる＋今日やること
 複数版をまとめる場合はディレクトリ名を `<最新版>` にし、report 内に版ごとのセクションを置く。
 成果物を書き出す際は `<!-- LLM: -->` コメントを全て削除する。
 
@@ -54,7 +56,7 @@ python3 scripts/publish.py <version>
 `templates/email.html` を埋めて Gmail `send_message` で送る。
 - to: tkm603018@gmail.com
 - subject: `[Claude Code] v<version> アップデートまとめ`（複数版なら `v<古い>〜v<新しい>`）
-- htmlBody: 埋めた email.html。body: post.md のテキスト + report_url（プレーン代替）
+- htmlBody: 埋めた email.html。body: summary.md のテキスト + report_url（プレーン代替）
 - セッションリンク: `python3 scripts/session_link.py` の結果と、可能なら `get_session self` のセッション ID/タイトルを本文に記載（取れなければ省略）。
 
 ## 6. 既読化（送信成功後のみ）
