@@ -3,8 +3,9 @@
   - Gmail はほとんどの CSS を許容するが、classレベルの<style>は消える場合があるので
     全要素に style 属性でインラインCSSを付けている。この構造は変えないこと。
   - テーブルレイアウト（table/tr/td）のみで組む。flex/grid は使わない。
-  - 画像が無い場合（push失敗などのフォールバック時）は {{CARD_BLOCK}} ブロックを
-    丸ごと削除し、代わりに「画像なし」の一文をテキストで入れる。
+  - 画像が無い場合（push失敗などのフォールバック時）は `<tr id="CARD_BLOCK">` 要素を丸ごと削除し、
+    代わりに「画像なし」の一文をテキストで入れる。画像がある場合は `id="CARD_BLOCK"` を含め、
+    この <tr> を削除せずそのまま残してよい（id 属性の削除は不要）。
 -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F4F5F7; padding:24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Segoe UI', sans-serif;">
   <tr>
@@ -27,7 +28,8 @@
           </td>
         </tr>
 
-        <!-- LLM: card.png のURLが取得できた場合のみこのブロックを残す。取得できない場合はこの <tr> ごと削除し、
+        <!-- LLM: card.png のURLが取得できた場合はこの <tr id="CARD_BLOCK"> をそのまま残す（id属性の削除は不要）。
+             取得できない場合はこの <tr id="CARD_BLOCK"> 要素を丸ごと削除し、
              代わりに「画像を生成できなかったため本文のみでお届けします」という一文を上のHeaderの下に追加する -->
         <tr id="CARD_BLOCK">
           <td style="padding:20px 32px 0 32px;">

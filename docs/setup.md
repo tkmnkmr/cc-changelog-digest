@@ -16,14 +16,15 @@
 
 ## GitHub リポジトリ / Pages 設定
 
-- リポジトリ: `tkmnkmr/cc-changelog-digest`
-- 公開先 URL: `https://tkmnkmr.github.io/cc-changelog-digest/`
-- Pages の設定: **Source を `main` ブランチの `/site` ディレクトリ**にする
+- 公開リポジトリ `tkmnkmr/cc-changelog-digest` を作成し、`main` に push する。
+- Pages は **GitHub Actions 方式**（`.github/workflows/pages.yml`）で `site/` をデプロイする。
+  従来方式（legacy）は公開元に `/` か `/docs` しか選べないため、`site/` を使うにはこの方式が必須。
   ```bash
-  gh api repos/tkmnkmr/cc-changelog-digest/pages -X PUT -f build_type=legacy \
-    -f "source[branch]=main" -f "source[path]=/site"
+  gh api repos/tkmnkmr/cc-changelog-digest/pages -X POST -f build_type=workflow   # 初回
+  gh api repos/tkmnkmr/cc-changelog-digest/pages -X PUT  -f build_type=workflow   # 既存設定の切替
   ```
-- `site/` は `docs/` から改名されたディレクトリ（旧構成からの移行時は Pages 設定を追随させること）。
+- `site/**` が main に push されるとワークフローが自動で走り、1〜2 分で反映される。
+  手動で走らせる場合は `gh workflow run pages.yml`。
 
 ## スケジュールタスクの登録
 

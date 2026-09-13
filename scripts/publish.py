@@ -63,6 +63,14 @@ def copy_version_dir(version):
         print(f"error: report.html missing for {version}; cannot publish", file=sys.stderr)
         sys.exit(1)
 
+    # Remove stale files that are no longer part of PUBLISH_FILES so site/<version>/
+    # stays in sync with out/<version>/ (directory entries only, no recursion).
+    for name in os.listdir(dst_dir):
+        path = os.path.join(dst_dir, name)
+        if os.path.isfile(path) and name not in PUBLISH_FILES:
+            os.remove(path)
+            print(f"note: removed stale {path}", file=sys.stderr)
+
     return copied
 
 

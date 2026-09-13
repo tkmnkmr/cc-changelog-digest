@@ -182,7 +182,7 @@ Claude Code v9.9.9、read-only 操作の確認待ちが消え、新モデルも�
 |---|---|---|
 | report.html / card.html | `{{VERSION}}` | バージョン番号 |
 | report.html / card.html / email.html | `{{HEADLINE}}` | 結論一文（40字以内、3ファイル共通） |
-| report.html / card.html | `{{RELEASE_DATE}}` | リリース日 |
+| report.html / card.html | `{{RELEASE_DATE}}` | リリース日。書式: pending JSON の `updated` を JST に変換した日付 `YYYY-MM-DD` |
 | report.html | `{{POINT_1}}`〜`{{POINT_3}}` | 3行でわかる（各50字以内） |
 | report.html | `{{DIAGRAM_BEFORE_AFTER}}` | Before/After 図の SVG |
 | report.html | `{{BENEFIT_TEXT}}` | 図の補足（50字以内） |
@@ -191,7 +191,7 @@ Claude Code v9.9.9、read-only 操作の確認待ちが消え、新モデルも�
 | report.html | `{{MODEL_TITLE}}` / `{{MODEL_DESC}}` | 新モデル（同上） |
 | report.html | `{{NEW_ITEM_*}}` / `{{UPDATE_ITEM_*}}` / `{{FIX_ITEM_*}}` / `{{DEPRECATED_ITEM_*}}` | 機能4列（各30字以内、複数可） |
 | report.html | `{{ACTION_ITEMS}}` | 今日やること（`<li>` を1〜3件、各50字以内） |
-| report.html | `{{CHANGELOG_URL}}` / `{{RELEASE_URL}}` / `{{SESSION_ID}}` / `{{GENERATED_AT}}` | フッター |
+| report.html | `{{CHANGELOG_URL}}` / `{{RELEASE_URL}}` / `{{SESSION_ID}}` / `{{GENERATED_AT}}` | フッター。`{{GENERATED_AT}}` の書式: 生成時のローカル日時 `YYYY-MM-DD HH:MM JST` |
 | card.html | `{{BREAKING_BADGE}}` | 破壊的変更バッジ文言（無ければブロックごと削除） |
 | card.html | `{{POINT_1_ICON}}`〜`{{POINT_4_ICON}}` / `{{POINT_1}}`〜`{{POINT_4}}` | 注目ポイント最大4つ（各30字以内） |
 | email.html | `{{VERSION}}` / `{{CARD_URL}}` / `{{REPORT_URL}}` | ヘッダー・画像・CTAリンク |
