@@ -58,17 +58,6 @@
     margin: 0;
   }
 
-  /* LLM: 破壊的変更が無い回は、この .breaking-badge ブロックごと削除すること */
-  .breaking-badge {
-    font-family: var(--mono);
-    font-size: 16px;
-    font-weight: 700;
-    color: #1a0a0a;
-    background: var(--c-breaking);
-    padding: 6px 16px;
-    border-radius: 999px;
-    letter-spacing: 0.03em;
-  }
 
   .version {
     font-family: var(--mono);
@@ -102,7 +91,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    align-content: start;
+    align-content: center;
     flex: 1;
     min-height: 0;
   }
@@ -146,19 +135,17 @@
 
     <h1 class="version">v2.1.270</h1>
 
-    <!-- LLM: キャッチ一文。40字以内、体言止め可、CHANGELOGの引き写し禁止 -->
-    <p class="headline">長いセッションでも git の確認で止まらない</p>
+    <p class="headline">長いセッションでも git の確認待ちで止まらない</p>
 
     <ul class="points">
-      <!-- LLM: 注目ポイント最大4つ。各30字以内。無い分は <li> ごと削除（空にしない） -->
-      <li><span class="icon">✅</span><span>読むだけの git は確認なしで実行</span></li>
-      <li><span class="icon">⏱</span><span>何時間作業しても挙動が変わらない</span></li>
-      <li><span class="icon">🔧</span><span>2.1.269 の出戻りを修正</span></li>
+      <li><span class="icon">🐛</span><span>git の確認待ちが解消</span></li>
+      <li><span class="icon">⏱</span><span>長時間セッションで再発せず</span></li>
+      <li><span class="icon">↩️</span><span>2.1.269 の不具合を修正</span></li>
     </ul>
   </div>
 
   <div class="footer">
-    <span>2026-09-12</span>
+    <span>2026-09-13</span>
     <span>Claude Code Changelog Digest</span>
   </div>
 
