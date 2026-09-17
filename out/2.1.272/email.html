@@ -1,0 +1,117 @@
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F4F5F7; padding:24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Segoe UI', sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px; background-color:#0F1115; border-radius:12px; overflow:hidden;">
+
+        <!-- Header: 結論一文 -->
+        <tr>
+          <td style="padding:28px 32px 20px 32px; border-bottom:1px solid #2A2E38;">
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:12px; color:#F5A623; letter-spacing:1px; margin:0 0 10px 0;">
+              CLAUDE CODE CHANGELOG DIGEST
+            </div>
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:30px; font-weight:700; color:#E8EAED; margin:0 0 6px 0;">
+              v2.1.272
+            </div>
+            <div style="font-size:16px; color:#E8EAED; line-height:1.6; margin:0;">
+              Monitor監視に期限、無期限待機が廃止
+            </div>
+          </td>
+        </tr>
+
+        <tr id="CARD_BLOCK">
+          <td style="padding:20px 32px 0 32px;">
+            <a href="https://tkmnkmr.github.io/cc-changelog-digest/2.1.272/report.html" style="text-decoration:none;">
+              <img src="https://tkmnkmr.github.io/cc-changelog-digest/2.1.272/card.png" width="536" alt="Claude Code v2.1.272 まとめ画像"
+                   style="display:block; width:100%; max-width:536px; height:auto; border-radius:10px; border:1px solid #2A2E38;">
+            </a>
+          </td>
+        </tr>
+
+        <!-- 3行でわかる -->
+        <tr>
+          <td style="padding:24px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 12px 0;">
+              3行でわかる
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+              <tr><td style="width:24px; font-family:ui-monospace,monospace; font-weight:800; color:#F5A623; padding:6px 8px 6px 0; vertical-align:top;">1</td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">自動モードのBash/PowerShell/Monitorが必要なホストだけを都度レビューして開放するようになった</td></tr>
+              <tr><td style="width:24px; font-family:ui-monospace,monospace; font-weight:800; color:#F5A623; padding:6px 8px 6px 0; vertical-align:top;">2</td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">Monitor監視は最大30分（-p実行時10分）で必ず期限切れになり、無期限待機は廃止された</td></tr>
+              <tr><td style="width:24px; font-family:ui-monospace,monospace; font-weight:800; color:#F5A623; padding:6px 8px 6px 0; vertical-align:top;">3</td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">v2.1.272は詳細非公開の軽微な修正のみ。破壊的変更・新モデルはv2.1.271分のみ該当</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- 注目トピック -->
+        <tr>
+          <td style="padding:20px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 12px 0;">
+              注目トピック
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+              <tr>
+                <td style="width:8px; background-color:#E5484D; border-radius:4px 0 0 4px;"></td>
+                <td style="padding:10px 12px; background-color:#1C1F27; border-radius:0 4px 4px 0; font-size:13px; color:#E8EAED;">
+                  <strong style="color:#E5484D;">破壊的変更</strong> Monitor監視は最大30分（-pは10分）で必ず期限切れ。無期限のpersistentオプションは廃止。
+                </td>
+              </tr>
+              <tr><td colspan="2" style="height:8px;"></td></tr>
+              <tr>
+                <td style="width:8px; background-color:#A78BFA; border-radius:4px 0 0 4px;"></td>
+                <td style="padding:10px 12px; background-color:#1C1F27; border-radius:0 4px 4px 0; font-size:13px; color:#E8EAED;">
+                  <strong style="color:#A78BFA;">大幅アップデート</strong> 自動モードの権限フローを刷新。通信先ホストの都度レビューとサブエージェント報告の専用審査を追加。
+                </td>
+              </tr>
+              <tr><td colspan="2" style="height:8px;"></td></tr>
+              <tr>
+                <td style="width:8px; background-color:#5B9DF9; border-radius:4px 0 0 4px;"></td>
+                <td style="padding:10px 12px; background-color:#1C1F27; border-radius:0 4px 4px 0; font-size:13px; color:#E8EAED;">
+                  <strong style="color:#5B9DF9;">新モデル</strong> 該当なし
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- 今日やること -->
+        <tr>
+          <td style="padding:20px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 10px 0;">
+              今日やること
+            </div>
+            <div style="background-color:#1C1F27; border:1px solid #2A2E38; border-radius:10px; padding:14px 16px; font-size:14px; line-height:1.8; color:#E8EAED;">
+              Monitorで無期限監視（persistentオプション）に頼っていた人 → 期限切れ後に自動で再起動される前提に運用を見直す<br>
+              自動モードでBash/PowerShell/Monitorを使っている人 → ドメイン許可が都度レビューに変わったことを確認する
+            </div>
+          </td>
+        </tr>
+
+        <!-- CTA -->
+        <tr>
+          <td style="padding:24px 32px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="border-radius:8px; background-color:#F5A623;">
+                  <a href="https://tkmnkmr.github.io/cc-changelog-digest/2.1.272/report.html" style="display:inline-block; padding:12px 22px; font-size:14px; font-weight:700; color:#1a0a0a; text-decoration:none;">
+                    詳細資料を見る
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="padding:16px 32px 28px 32px; border-top:1px solid #2A2E38;">
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:11px; color:#5B6270; line-height:1.9;">
+              CHANGELOG: <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.272" style="color:#9AA1AC;">https://github.com/anthropics/claude-code/releases/tag/v2.1.272</a><br>
+              Release: <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.271" style="color:#9AA1AC;">https://github.com/anthropics/claude-code/releases/tag/v2.1.271</a><br>
+              Session: local_cf3f2290-5fed-4526-bbc0-75a81533c31f (【毎時】Claude Code CHANGELOG ダイジェスト配信)
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
