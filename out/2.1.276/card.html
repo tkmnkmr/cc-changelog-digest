@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>card</title>
+<style>
+  :root{
+    --bg: #0F1115;
+    --bg-raise: #171A21;
+    --border: #2A2E38;
+    --text: #F3F4F6;
+    --text-dim: #9AA1AC;
+    --accent: #F5A623;
+    --mono: ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+    --sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Segoe UI", system-ui, sans-serif;
+    --c-breaking: #E5484D;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    width: 1200px;
+    height: 675px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background:
+      radial-gradient(900px 400px at 90% -10%, rgba(245,166,35,0.14), transparent 60%),
+      radial-gradient(700px 300px at -10% 110%, rgba(91,157,249,0.10), transparent 60%),
+      var(--bg);
+  }
+
+  .card-inner {
+    padding: 64px 72px 0 72px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 20px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+
+  .version {
+    font-family: var(--mono);
+    font-weight: 800;
+    font-size: 96px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0 0 22px 0;
+  }
+
+  .headline {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.45;
+    margin: 0 0 36px 0;
+    max-width: 980px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: min-content;
+    gap: 16px 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-content: center;
+    flex: 1;
+    min-height: 0;
+  }
+  .points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--bg-raise);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .points li .icon { flex: none; font-size: 24px; }
+
+  .footer {
+    padding: 22px 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+  <div class="card-inner">
+    <div class="top-row">
+      <p class="eyebrow">CLAUDE CODE UPDATE</p>
+    </div>
+
+    <h1 class="version">v2.1.276</h1>
+
+    <p class="headline">プロキシ経由利用で全リクエストが失敗する不具合を修正</p>
+
+    <ul class="points">
+      <li><span class="icon">🐛</span><span>プロキシ利用時の400エラーを修正</span></li>
+      <li><span class="icon">⏪</span><span>2.1.275で入った回帰への対応</span></li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <span>2026-09-18</span>
+    <span>Claude Code Changelog Digest</span>
+  </div>
+
+</body>
+</html>
