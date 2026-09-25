@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>2.1.283 アップデートまとめ</title>
+<style>
+  :root{
+    --bg: #0F1115;
+    --bg-raise: #171A21;
+    --bg-card: #1C1F27;
+    --border: #2A2E38;
+    --text: #E8EAED;
+    --text-dim: #9AA1AC;
+    --text-faint: #5B6270;
+    --accent: #F5A623;
+    --mono: ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+    --sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Segoe UI", system-ui, sans-serif;
+
+    --c-breaking: #E5484D;
+    --c-breaking-bg: rgba(229,72,77,0.12);
+    --c-major: #A78BFA;
+    --c-major-bg: rgba(167,139,250,0.12);
+    --c-model: #5B9DF9;
+    --c-model-bg: rgba(91,157,249,0.12);
+    --c-new: #34D399;
+    --c-new-bg: rgba(52,211,153,0.12);
+    --c-update: #F0B429;
+    --c-update-bg: rgba(240,180,41,0.12);
+    --c-fix: #2DD4BF;
+    --c-fix-bg: rgba(45,212,191,0.12);
+    --c-deprecated: #8A8F98;
+    --c-deprecated-bg: rgba(138,143,152,0.12);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 0 0 40px 0;
+  }
+
+  .wrap { padding: 0 48px; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 56px 48px 40px 48px;
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(600px 200px at 85% -20%, rgba(245,166,35,0.10), transparent 60%),
+      var(--bg-raise);
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin: 0 0 14px 0;
+  }
+  .hero-version {
+    font-family: var(--mono);
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px 0;
+    color: var(--text);
+  }
+  .hero-date {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin: 0 0 22px 0;
+  }
+  .hero-headline {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0 0 28px 0;
+    max-width: 820px;
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+  }
+  .hero-card {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  /* ---------- Section shell ---------- */
+  section.block {
+    padding: 40px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  section.block:last-of-type { border-bottom: none; }
+  .block-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+  }
+  .block-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+  .block-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin: 0 0 24px 0;
+    line-height: 1.7;
+  }
+
+  .none {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-faint);
+    background: var(--bg-card);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    display: inline-block;
+  }
+  .none::before { content: "— "; }
+
+  /* ---------- 3行でわかる ---------- */
+  .points3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .points3 li {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .points3 .num {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+    margin: 0 0 8px 0;
+  }
+  .points3 .txt {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* ---------- Diagram slot ---------- */
+  .diagram-slot {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+  .diagram-slot svg { display: block; width: 100%; height: auto; }
+  .diagram-caption {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ---------- Topic cards (breaking / major / model) ---------- */
+  .topics3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .item-card {
+    border-radius: 10px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    height: 100%;
+  }
+  .item-card.breaking { background: var(--c-breaking-bg); border-color: rgba(229,72,77,0.35); }
+  .item-card.major { background: var(--c-major-bg); border-color: rgba(167,139,250,0.35); }
+  .item-card.model { background: var(--c-model-bg); border-color: rgba(91,157,249,0.35); }
+
+  .item-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  .breaking .item-tag { background: var(--c-breaking); color: #1a0a0a; }
+  .major .item-tag { background: var(--c-major); color: #1a1030; }
+  .model .item-tag { background: var(--c-model); color: #08152e; }
+
+  .item-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+  }
+  .item-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ---------- 4-column feature grid ---------- */
+  .cols3 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .col {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .col-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .col.new .dot { background: var(--c-new); }
+  .col.update .dot { background: var(--c-update); }
+  .col.fix .dot { background: var(--c-fix); }
+  .col.deprecated .dot { background: var(--c-deprecated); }
+
+  .feat-item {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--text);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .feat-item:last-child { border-bottom: none; }
+  .feat-item::before { content: "› "; color: var(--text-faint); }
+
+  /* ---------- Action items ---------- */
+  .actions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .actions li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .actions li:last-child { margin-bottom: 0; }
+  .actions li::before { content: "→ "; color: var(--accent); font-weight: 700; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 28px 48px 0 48px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  footer a { color: var(--text-dim); text-decoration: none; border-bottom: 1px dotted var(--text-faint); }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <p class="hero-eyebrow">CLAUDE CODE CHANGELOG DIGEST</p>
+    <h1 class="hero-version">2.1.283</h1>
+    <p class="hero-date">2026-09-26</p>
+    <p class="hero-headline">古いCLAUDE.mdを点検する新コマンド追加、一部環境は自動モード既定に</p>
+    <img class="hero-card" src="card.png" alt="2.1.283 まとめ画像">
+  </div>
+
+  <div class="wrap">
+
+    <section class="block">
+      <h2 class="block-title"><span class="block-num">01</span> 3行でわかる</h2>
+      <ul class="points3">
+        <li><span class="num">1</span><span class="txt">CLAUDE.md や skill に残った旧モデル向けの書き方を /doctor が指摘してくれる</span></li>
+        <li><span class="num">2</span><span class="txt">第三者プロバイダやテレメトリ無効の環境は、既定で auto mode 開始に変わった</span></li>
+        <li><span class="num">3</span><span class="txt">MCP とプラグイン周りの不具合が大量に直り、一覧操作と起動も速くなった</span></li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="block-num">02</span> 何が変わる・何が嬉しい</h2>
+      <div class="diagram-slot">
+        <svg viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" font-family="Hiragino Kaku Gothic ProN, sans-serif">
+          <!-- Before pane -->
+          <rect x="0" y="0" width="400" height="200" rx="12" fill="#1C1F27" stroke="#2A2E38"/>
+          <text x="24" y="34" font-size="12" fill="#8A8F98" letter-spacing="1">BEFORE</text>
+          <text x="24" y="70" font-size="16" fill="#E8EAED" font-weight="700">古い指示に気付けない</text>
+          <text x="24" y="98" font-size="13" fill="#9AA1AC">旧モデル向けの書き方や</text>
+          <text x="24" y="118" font-size="13" fill="#9AA1AC">切れたパスが残ったまま</text>
+
+          <!-- Arrow -->
+          <line x1="410" y1="100" x2="480" y2="100" stroke="#F5A623" stroke-width="3"/>
+          <polygon points="480,92 498,100 480,108" fill="#F5A623"/>
+
+          <!-- After pane -->
+          <rect x="500" y="0" width="400" height="200" rx="12" fill="#1C1F27" stroke="#34D399"/>
+          <text x="524" y="34" font-size="12" fill="#34D399" letter-spacing="1">AFTER</text>
+          <text x="524" y="70" font-size="16" fill="#E8EAED" font-weight="700">/doctor が棚卸し</text>
+          <text x="524" y="98" font-size="13" fill="#9AA1AC">古い書き方と矛盾を先に指摘。</text>
+          <text x="524" y="118" font-size="13" fill="#9AA1AC">自分で読み直す手間が要らない</text>
+        </svg>
+      </div>
+      <p class="diagram-caption">設定ファイルの棚卸しが1コマンドで済み、古い指示による迷走が減る。</p>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="block-num">03</span> 注目トピック</h2>
+      <div class="topics3">
+        <div class="item-card breaking">
+          <span class="item-tag">BREAKING</span>
+          <p class="item-title">一部環境で auto mode が既定に</p>
+          <p class="item-desc">第三者プロバイダ利用時やテレメトリ無効時、権限モード未設定なら auto mode で始まる。permissions.defaultMode を書けば従来どおり。</p>
+        </div>
+        <div class="item-card major">
+          <span class="item-tag">MAJOR</span>
+          <p class="item-title">一覧UIがまとめて操作しやすく</p>
+          <p class="item-desc">/mcp・/tasks・/help・/memory など多数のピッカーがページキー、マウスホイール、クリックに対応した。</p>
+        </div>
+        <div class="item-card model">
+          <span class="item-tag">MODEL</span>
+          <div class="none">該当なし</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="block-num">04</span> 機能の追加・更新・廃止</h2>
+      <div class="cols3">
+        <div class="col new">
+          <p class="col-head"><span class="dot"></span>✨ 新規</p>
+          <p class="feat-item">/doctor prompt-audit で設定を点検</p>
+          <p class="feat-item">deniedModels で特定モデルを禁止</p>
+          <p class="feat-item">availableModelsMatch で版を固定</p>
+          <p class="feat-item">他セッションの省略表示をクリックで展開</p>
+          <p class="feat-item">gateway ヘッダにプロンプトID追加</p>
+        </div>
+        <div class="col update">
+          <p class="col-head"><span class="dot"></span>🔧 更新</p>
+          <p class="feat-item">初回応答と起動が速くなった</p>
+          <p class="feat-item">MCPの画像がファイルにも保存される</p>
+          <p class="feat-item">圧縮スピナーがトークン数を表示</p>
+          <p class="feat-item">/mcp が組織のブロック済みツールを明示</p>
+          <p class="feat-item">--system-prompt と -file を併用可能</p>
+        </div>
+        <div class="col fix">
+          <p class="col-head"><span class="dot"></span>🐛 修正</p>
+          <p class="feat-item">MCPの進捗が背景実行でも見える</p>
+          <p class="feat-item">一時的な404でMCPが死なない</p>
+          <p class="feat-item">plugin uninstall の誤削除を修正</p>
+          <p class="feat-item">vim モードの . と J が Vim 準拠に</p>
+          <p class="feat-item">/context が MCP 指示分も計上</p>
+          <p class="feat-item">Warp でリンクがクリックできる</p>
+        </div>
+        <div class="col deprecated">
+          <p class="col-head"><span class="dot"></span>🗑️ 廃止・利用不可</p>
+          <p class="feat-item">git 2.31 未満で plugin eval が不可</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="block-num">05</span> 影響を受ける人・今日やること</h2>
+      <ul class="actions">
+        <li>Bedrock/Vertex などやテレメトリ無効で使う人 → permissions.defaultMode を明示する</li>
+        <li>claude plugin eval を使う人 → git を 2.31 以上に上げる</li>
+        <li>組織でモデルを絞りたい管理者 → deniedModels と availableModelsMatch を設定する</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>CHANGELOG: <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md</a></span>
+    <span>Release: <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.283">https://github.com/anthropics/claude-code/releases/tag/v2.1.283</a></span>
+    <span>Generated: 2026-09-26 07:10 JST</span>
+  </footer>
+
+</body>
+</html>
