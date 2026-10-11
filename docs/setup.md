@@ -33,23 +33,22 @@
 - 想定モデル/effort: Opus 5 / medium
 - 起動条件: Claude デスクトップアプリ起動中のみ
 
-登録するプロンプト本文:
+登録するプロンプト本文（`~/.claude/scheduled-tasks/cc-changelog-digest/SKILL.md` と同一に保つ）:
 
 ```
 あなたは Claude Code の CHANGELOG ダイジェスト配信担当です。
 作業ディレクトリ: /Users/tkm/code/cc-changelog-digest
 必ず同ディレクトリの CLAUDE.md の手順を上から順に実行してください。
 
-最初に `python3 scripts/check_update.py` を実行し、出力が NO_UPDATE なら
-「更新なし」とだけ報告して直ちに終了してください（他のツールは一切使わない）。
+最初に `cd /Users/tkm/code/cc-changelog-digest && python3 scripts/check_update.py` を実行し、出力が NO_UPDATE なら「更新なし」とだけ報告して直ちに終了してください（他のツールは一切使わない）。
 
-NEW_UPDATE の場合のみ、CLAUDE.md の 2〜6 節（執筆 → render_png → publish →
-Gmail 送信 → mark_seen）を完遂してください。執筆規約は templates/DIAGRAM_GUIDE.md。
-送信先は tkm603018@gmail.com。Gmail 送信には接続済みの Gmail ツール send_message を使います。
-送信が成功した場合のみ mark_seen.py を実行します。
+NEW_UPDATE の場合のみ、CLAUDE.md の 2〜6 節（執筆 → render_png → publish → Gmail 送信 → mark_seen）を完遂してください。執筆規約は templates/DIAGRAM_GUIDE.md（必読。冒頭の「文体の手本」に従い、結論先出し・短文・読者主語で書く）。テンプレは templates/report.html, card.html, email.html。examples/sample/ は架空データの見本なので事実として使わないこと。
+CHANGELOG に書かれていないことは書かない（新モデルや破壊的変更を捏造しない）。該当がないカテゴリは「該当なし」と正直に書く。成果物に `<!-- LLM: -->` コメントや未置換の {{PLACEHOLDER}} を残さない。card.png は Read で目視確認する。
 
-セッションリンク: get_session self でこのセッションの sessionId とタイトルを取得し、
-メール本文のフッターに記載してください（取得できなければ省略）。
+送信先は tkm603018@gmail.com。Gmail 送信には接続済みの Gmail ツール send_message を使います（見つからなければ ToolSearch で "gmail send_message" を検索して読み込む）。件名は `[Claude Code] v<version> アップデートまとめ`。htmlBody に埋めた email.html、body に summary.md と資料 URL。
+送信が成功した場合のみ mark_seen.py を実行します。送信・公開に失敗した場合は既読化せず、失敗内容を報告して終了。
+
+セッションリンク: mcp__ccd_session_mgmt__get_session（session_id: "self"）で sessionId とタイトルを取得し、メール本文フッターに記載（取得できなければ省略）。
 
 最後に、送った版番号・公開 URL・所要の判断（破壊的変更の有無など）を 3 行で報告してください。
 ```
