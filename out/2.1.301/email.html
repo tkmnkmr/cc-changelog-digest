@@ -1,0 +1,93 @@
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F4F5F7; padding:24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Segoe UI', sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px; background-color:#0F1115; border-radius:12px; overflow:hidden;">
+
+        <tr>
+          <td style="padding:28px 32px 20px 32px; border-bottom:1px solid #2A2E38;">
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:12px; color:#F5A623; letter-spacing:1px; margin:0 0 10px 0;">
+              CLAUDE CODE CHANGELOG DIGEST
+            </div>
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:30px; font-weight:700; color:#E8EAED; margin:0 0 6px 0;">
+              v2.1.301
+            </div>
+            <div style="font-size:16px; color:#E8EAED; line-height:1.6; margin:0;">
+              小さいモデルへの切替が安全に。vim強化と修正多数
+            </div>
+          </td>
+        </tr>
+
+        <tr id="CARD_BLOCK">
+          <td style="padding:20px 32px 0 32px;">
+            <a href="{{REPORT_URL}}" style="text-decoration:none;">
+              <img src="{{CARD_URL}}" width="536" alt="Claude Code v2.1.301 まとめ画像"
+                   style="display:block; width:100%; max-width:536px; height:auto; border-radius:10px; border:1px solid #2A2E38;">
+            </a>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:24px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 12px 0;">
+              3行でわかる
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+              <tr><td style="width:24px; font-family:ui-monospace,monospace; font-weight:800; color:#F5A623; padding:6px 8px 6px 0; vertical-align:top;">1</td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">文脈の短いモデルに切り替えても、長い会話は前のモデルが先に要約してくれる</td></tr>
+              <tr><td style="width:24px; font-family:ui-monospace,monospace; font-weight:800; color:#F5A623; padding:6px 8px 6px 0; vertical-align:top;">2</td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">fable指定が組織で使えなくても、1つ前のFableで自動リトライして止まらない</td></tr>
+              <tr><td style="width:24px; font-family:ui-monospace,monospace; font-weight:800; color:#F5A623; padding:6px 8px 6px 0; vertical-align:top;">3</td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">auto modeの判定理由がOTelで見える。破壊的変更・新モデルはなし</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:20px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 12px 0;">
+              注目トピック
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+              <tr><td style="width:90px; padding:6px 8px 6px 0; vertical-align:top;"><span style="display:inline-block; background-color:#E5484D; color:#1a0a0a; font-family:ui-monospace,monospace; font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px;">BREAKING</span></td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">該当なし</td></tr>
+              <tr><td style="width:90px; padding:6px 8px 6px 0; vertical-align:top;"><span style="display:inline-block; background-color:#A78BFA; color:#1a0a0a; font-family:ui-monospace,monospace; font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px;">MAJOR</span></td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">モデル切替時の自動要約: 文脈の短いモデルへ切り替えても前のモデルが先に会話を要約</td></tr>
+              <tr><td style="width:90px; padding:6px 8px 6px 0; vertical-align:top;"><span style="display:inline-block; background-color:#5B9DF9; color:#1a0a0a; font-family:ui-monospace,monospace; font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px;">MODEL</span></td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">該当なし</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:20px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 10px 0;">
+              今日やること
+            </div>
+            <div style="background-color:#1C1F27; border:1px solid #2A2E38; border-radius:10px; padding:14px 16px; font-size:14px; line-height:1.8; color:#E8EAED;">
+              modを書いている人 → .catch と $.env.set の戻り値の扱いを確認する<br>無人リトライを使う人 → 待機上限の環境変数の設定を検討する
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:24px 32px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="border-radius:8px; background-color:#F5A623;">
+                  <a href="{{REPORT_URL}}" style="display:inline-block; padding:12px 22px; font-size:14px; font-weight:700; color:#1a0a0a; text-decoration:none;">
+                    詳細資料を見る
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:16px 32px 28px 32px; border-top:1px solid #2A2E38;">
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:11px; color:#5B6270; line-height:1.9;">
+              CHANGELOG: <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" style="color:#9AA1AC;">https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md</a><br>
+              Release: <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.301" style="color:#9AA1AC;">https://github.com/anthropics/claude-code/releases/tag/v2.1.301</a><br>
+              Session: local_7b7f55e0-f494-40b5-b03f-28774cd8d93b (Claude Code CHANGELOG ダイジェスト配信)
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
