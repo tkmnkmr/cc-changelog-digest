@@ -1,0 +1,104 @@
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F4F5F7; padding:24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Segoe UI', sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px; background-color:#0F1115; border-radius:12px; overflow:hidden;">
+
+        <!-- Header: 結論一文 -->
+        <tr>
+          <td style="padding:28px 32px 20px 32px; border-bottom:1px solid #2A2E38;">
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:12px; color:#F5A623; letter-spacing:1px; margin:0 0 10px 0;">
+              CLAUDE CODE CHANGELOG DIGEST
+            </div>
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:30px; font-weight:700; color:#E8EAED; margin:0 0 6px 0;">
+              v2.1.311
+            </div>
+            
+            <div style="font-size:16px; color:#E8EAED; line-height:1.6; margin:0;">
+              ultrathink が xhigh に。200K超えても止まらず自動圧縮で続行
+            </div>
+          </td>
+        </tr>
+
+        
+        <tr id="CARD_BLOCK">
+          <td style="padding:20px 32px 0 32px;">
+            <a href="https://tkmnkmr.github.io/cc-changelog-digest/2.1.311/report.html" style="text-decoration:none;">
+              <img src="https://tkmnkmr.github.io/cc-changelog-digest/2.1.311/card.png" width="536" alt="Claude Code v2.1.311 まとめ画像"
+                   style="display:block; width:100%; max-width:536px; height:auto; border-radius:10px; border:1px solid #2A2E38;">
+            </a>
+          </td>
+        </tr>
+
+        <!-- 3行でわかる -->
+        <tr>
+          <td style="padding:24px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 12px 0;">
+              3行でわかる
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+              
+              <tr><td style="width:24px; font-family:ui-monospace,monospace; font-weight:800; color:#F5A623; padding:6px 8px 6px 0; vertical-align:top;">1</td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">「ultrathink」と打つと、そのターンが xhigh effort で動く。作業中に打っても効く</td></tr><tr><td style="width:24px; font-family:ui-monospace,monospace; font-weight:800; color:#F5A623; padding:6px 8px 6px 0; vertical-align:top;">2</td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">標準コンテキストで200Kを超えても止まらない。会話を自動圧縮して作業を続ける</td></tr><tr><td style="width:24px; font-family:ui-monospace,monospace; font-weight:800; color:#F5A623; padding:6px 8px 6px 0; vertical-align:top;">3</td><td style="padding:6px 0; font-size:14px; color:#E8EAED;">大きな編集後の最大5秒停止や、サブエージェントのMCP不可など修正56件</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- 注目トピック -->
+        <tr>
+          <td style="padding:20px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 12px 0;">
+              注目トピック
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+              
+              <tr><td style="width:120px; padding:6px 10px; font-size:12px; font-weight:700; color:#0F1115; background-color:#E5484D; border-radius:6px; vertical-align:top;">破壊的変更</td><td style="padding:6px 0 6px 12px; font-size:14px; color:#E8EAED;">該当なし</td></tr><tr><td colspan="2" style="height:6px;"></td></tr>
+<tr><td style="width:120px; padding:6px 10px; font-size:12px; font-weight:700; color:#0F1115; background-color:#A78BFA; border-radius:6px; vertical-align:top;">大幅アップデート</td><td style="padding:6px 0 6px 12px; font-size:14px; color:#E8EAED;">ultrathink がそのターンを xhigh effort で実行するように（Opus 5.5 など、Anthropic API 経由）</td></tr><tr><td colspan="2" style="height:6px;"></td></tr>
+<tr><td style="width:120px; padding:6px 10px; font-size:12px; font-weight:700; color:#0F1115; background-color:#5B9DF9; border-radius:6px; vertical-align:top;">新モデル</td><td style="padding:6px 0 6px 12px; font-size:14px; color:#E8EAED;">該当なし</td></tr><tr><td colspan="2" style="height:6px;"></td></tr>
+
+            </table>
+          </td>
+        </tr>
+
+        <!-- 今日やること -->
+        <tr>
+          <td style="padding:20px 32px 8px 32px;">
+            <div style="font-size:13px; font-weight:700; color:#9AA1AC; letter-spacing:0.04em; margin:0 0 10px 0;">
+              今日やること
+            </div>
+            <div style="background-color:#1C1F27; border:1px solid #2A2E38; border-radius:10px; padding:14px 16px; font-size:14px; line-height:1.8; color:#E8EAED;">
+              
+              Bedrock等で外部通信を絞っている人 → CLAUDE_CODE_MODEL_CATALOG=off を検討<br>ultrathink を多用する人 → xhigh 実行で使用量が増える点を意識する<br>長い作業が200K超えで止まっていた人 → 更新して続きから進める
+            </div>
+          </td>
+        </tr>
+
+        <!-- CTA -->
+        <tr>
+          <td style="padding:24px 32px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="border-radius:8px; background-color:#F5A623;">
+                  <a href="https://tkmnkmr.github.io/cc-changelog-digest/2.1.311/report.html" style="display:inline-block; padding:12px 22px; font-size:14px; font-weight:700; color:#1a0a0a; text-decoration:none;">
+                    詳細資料を見る
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="padding:16px 32px 28px 32px; border-top:1px solid #2A2E38;">
+            <div style="font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size:11px; color:#5B6270; line-height:1.9;">
+              CHANGELOG: <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md" style="color:#9AA1AC;">https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md</a><br>
+              Release: <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.311" style="color:#9AA1AC;">https://github.com/anthropics/claude-code/releases/tag/v2.1.311</a><br>
+              Session: local_517469ea-8d84-4050-91f2-2bf38e9ab07d (Claude Code CHANGELOG ダイジェスト配信)
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
